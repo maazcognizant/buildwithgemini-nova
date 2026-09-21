@@ -4,9 +4,26 @@
 
 ---
 
+![Nova Demo](demo.gif)
+
 ## What is Nova
 
 Nova is an autonomous Tier-1.5 IT concierge engineered for enterprise operations. Unlike basic Q&A chatbots, Nova performs role-aware incident triage, queries internal RAG knowledge bases, computes SLA breach risk using secure python sandboxing, generates diagnostic topology diagrams, and manages Firestore ticket records in a single autonomous turn.
+
+## Live Demo
+
+- **Production Cloud Run Application**: [https://nova-frontend-1091400127157.us-central1.run.app](https://nova-frontend-1091400127157.us-central1.run.app)
+- **Vertex AI Agent Engine Resource**: `projects/1091400127157/locations/us-central1/reasoningEngines/2845610309719162880`
+
+## Dashboard & Insights
+
+Nova features a high-performance Apple-caliber IT Operations Dashboard for real-time telemetry and management:
+- **KPI Metrics**: Real-time aggregate counters for Total Tickets, Open & Active Incidents, Critical P1/P2 Alerts, and Resolved Tickets connected directly to Cloud Firestore.
+- **Incident Volume Trends**: Interactive Chart.js timeline tracking weekly ticket volume and resolution velocities.
+- **Priority Distribution**: Visual donut breakdown across P1 (Critical), P2 (High), P3 (Standard), and P4 (Low) severity tiers.
+- **Team Workload Breakdown**: Departmental allocation chart highlighting active queues for SRE, Network Ops, IAM, and Software Procurement teams.
+- **SLA Risk Watchlist**: Live urgency monitor surfacing tickets closest to SLA breach thresholds.
+- **Filterable Ticket Matrix**: Interactive ticket browser with real-time text search, status filters, priority chips, modal slide-over inspection, and one-click incident escalation.
 
 ## Key Capabilities
 
@@ -70,8 +87,8 @@ Nova is an autonomous Tier-1.5 IT concierge engineered for enterprise operations
 
 1. Clone the repository and navigate to the project directory:
    ```bash
-   git clone https://github.com/maazcognizant/nova.git
-   cd nova
+   git clone https://github.com/maazcognizant/buildwithgemini-nova.git
+   cd buildwithgemini-nova
    ```
 
 2. Install dependencies using `uv`:
@@ -81,7 +98,7 @@ Nova is an autonomous Tier-1.5 IT concierge engineered for enterprise operations
 
 3. Set required environment variables:
    ```bash
-   export AGENT_ENGINE_RESOURCE_NAME="projects/<PROJECT_NUMBER>/locations/<LOCATION>/reasoningEngines/<ENGINE_ID>"
+   export AGENT_ENGINE_RESOURCE_NAME="projects/1091400127157/locations/us-central1/reasoningEngines/2845610309719162880"
    export AGENT_DIRECTORY="app"
    export PORT=8080
    ```

@@ -221,10 +221,10 @@ print(f"SLA Breach Risk Level: {{risk_pct:.1f}}%")
 
 
 def create_ticket(
-    employee_name: str,
-    department: str,
-    role: str,
-    issue_description: str,
+    employee_name: str = "Anonymous User",
+    department: str = "IT",
+    role: str = "Employee",
+    issue_description: str = "IT Issue Reported",
     priority: str = "P3",
 ) -> str:
     """Create a new IT support incident ticket in the Firestore backend.
@@ -244,7 +244,7 @@ def create_ticket(
     ticket_id = f"TICKET-{ticket_num}"
 
     # Auto-assign team based on issue keywords
-    desc_lower = issue_description.lower()
+    desc_lower = str(issue_description).lower()
     if any(k in desc_lower for k in ["k8s", "kubernetes", "latency", "outage", "production", "cluster", "crash"]):
         assigned_team = "Site Reliability Engineering (SRE)"
     elif any(k in desc_lower for k in ["vpn", "network", "wifi", "internet", "dns", "firewall"]):
@@ -264,11 +264,11 @@ def create_ticket(
 
     ticket_data = {
         "ticket_id": ticket_id,
-        "employee_name": employee_name,
-        "department": department,
-        "role": role,
-        "issue_description": issue_description,
-        "priority": priority,
+        "employee_name": employee_name or "Anonymous User",
+        "department": department or "IT",
+        "role": role or "Employee",
+        "issue_description": issue_description or "IT Issue Reported",
+        "priority": priority or "P3",
         "status": "open",
         "assigned_team": assigned_team,
         "created_at": created_at,
@@ -373,7 +373,6 @@ def list_all_tickets(status: str | None = None) -> str:
     )
 
 
-
 def update_or_escalate_ticket(
     ticket_id: str,
     new_status: str,
@@ -383,7 +382,7 @@ def update_or_escalate_ticket(
     """Update status, escalate, or adjust priority of an existing IT support ticket in Firestore.
 
     Args:
-        ticket_id: The unique ticket identifier (e.g. 'TICKET-1001').
+        ticket_id: The unique ticket identifier (e.g. 'TICKET-1001', 'ticket-1001', '8308').
         new_status: Target status ('open', 'in-progress', 'escalated', 'resolved').
         escalation_reason: Optional explanation if escalating the ticket.
         new_priority: Optional updated priority level ('P1', 'P2', 'P3', 'P4').
@@ -392,11 +391,36 @@ def update_or_escalate_ticket(
         JSON string summarizing the updated ticket state.
     """
     db = _get_firestore_client()
-    doc_ref = db.collection("tickets").document(ticket_id.strip())
+    raw_id = str(ticket_id).strip()
+
+    import re
+    num_match = re.search(r'\d+', raw_id)
+    clean_num = num_match.group(0) if num_match else raw_id
+    formatted_id = f"TICKET-{clean_num}" if num_match else raw_id.upper()
+
+    doc_ref = db.collection("tickets").document(formatted_id)
     doc = doc_ref.get()
 
+    if not doc.exists and raw_id != formatted_id:
+        doc_ref = db.collection("tickets").document(raw_id)
+        doc = doc_ref.get()
+
     if not doc.exists:
-        return json.dumps({"error": f"Ticket '{ticket_id}' not found."}, indent=2)
+        doc_ref = db.collection("tickets").document(raw_id.upper())
+        doc = doc_ref.get()
+
+    if not doc.exists:
+        docs = list(db.collection("tickets").where("ticket_id", "==", formatted_id).stream())
+        if not docs:
+            docs = list(db.collection("tickets").where("ticket_id", "==", raw_id).stream())
+        if not docs:
+            docs = list(db.collection("tickets").where("ticket_id", "==", raw_id.upper()).stream())
+        if docs:
+            doc = docs[0]
+            doc_ref = doc.reference
+
+    if not doc.exists:
+        return json.dumps({"error": f"Ticket '{formatted_id}' not found."}, indent=2)
 
     data = doc.to_dict()
     updates = {"status": new_status, "updated_at": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")}
@@ -416,7 +440,7 @@ def update_or_escalate_ticket(
 
     return json.dumps(
         {
-            "message": f"Ticket '{ticket_id}' updated successfully to status '{new_status}'.",
+            "message": f"Ticket '{doc.id}' updated successfully to status '{new_status}'.",
             "updated_ticket": data,
         },
         indent=2,
