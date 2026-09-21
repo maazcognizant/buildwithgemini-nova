@@ -206,6 +206,22 @@ async def chat(req: Request):
     return JSONResponse({"parts": parts})
 
 
+@app.get("/api/tickets")
+async def get_tickets():
+    try:
+        from google.cloud import firestore
+        db = firestore.Client(project="qwiklabs-gcp-03-2f074985a624")
+        docs = db.collection("tickets").stream()
+        out = []
+        for d in docs:
+            data = d.to_dict()
+            data["ticket_id"] = d.id
+            out.append(data)
+        return JSONResponse({"tickets": out})
+    except Exception as e:
+        return JSONResponse({"error": str(e)}, status_code=500)
+
+
 STATIC_DIR = os.path.join(os.path.dirname(__file__), "static")
 # Serve the chat UI (keep this mount last so /chat wins).
 app.mount("/", StaticFiles(directory=STATIC_DIR, html=True), name="static")

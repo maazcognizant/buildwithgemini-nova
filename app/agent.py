@@ -289,25 +289,38 @@ def get_ticket_status(ticket_id: str) -> str:
     """Retrieve the status and details of an IT support ticket from Firestore by ticket ID.
 
     Args:
-        ticket_id: The unique ID of the ticket (e.g. 'TICKET-1001', '4800', 'TICKET-4800').
+        ticket_id: The unique ID of the ticket (e.g. 'TICKET-1001', 'ticket-1001', '1001', 'TICKET-4800').
 
     Returns:
         JSON string with complete ticket record or {"found": false, "message": ...} if not found.
     """
     db = _get_firestore_client()
-    raw_id = ticket_id.strip()
+    raw_id = str(ticket_id).strip()
 
-    # Clean up ticket_id format (e.g., '4800' or 'ticket 4800' -> 'TICKET-4800')
-    clean_num = raw_id.upper().replace("TICKET-", "").replace("TICKET", "").strip()
-    formatted_id = f"TICKET-{clean_num}" if clean_num.isdigit() else raw_id
+    import re
+    num_match = re.search(r'\d+', raw_id)
+    clean_num = num_match.group(0) if num_match else raw_id
+    formatted_id = f"TICKET-{clean_num}" if num_match else raw_id.upper()
 
-    # Check document in Firestore
     doc_ref = db.collection("tickets").document(formatted_id)
     doc = doc_ref.get()
 
     if not doc.exists and raw_id != formatted_id:
         doc_ref = db.collection("tickets").document(raw_id)
         doc = doc_ref.get()
+
+    if not doc.exists:
+        doc_ref = db.collection("tickets").document(raw_id.upper())
+        doc = doc_ref.get()
+
+    if not doc.exists:
+        docs = list(db.collection("tickets").where("ticket_id", "==", formatted_id).stream())
+        if not docs:
+            docs = list(db.collection("tickets").where("ticket_id", "==", raw_id).stream())
+        if not docs:
+            docs = list(db.collection("tickets").where("ticket_id", "==", raw_id.upper()).stream())
+        if docs:
+            doc = docs[0]
 
     if not doc.exists:
         return json.dumps(
@@ -318,14 +331,47 @@ def get_ticket_status(ticket_id: str) -> str:
             indent=2,
         )
 
+    tdata = doc.to_dict()
+    tdata["ticket_id"] = doc.id
     return json.dumps(
         {
             "found": True,
             "ticket_id": doc.id,
-            "details": doc.to_dict(),
+            "details": tdata,
         },
         indent=2,
     )
+
+
+def list_all_tickets(status: str | None = None) -> str:
+    """Retrieve all IT support tickets from Firestore.
+
+    Args:
+        status: Optional filter status ('open', 'in-progress', 'escalated', 'resolved').
+
+    Returns:
+        JSON string containing the total count and list of all ticket records from Firestore.
+    """
+    db = _get_firestore_client()
+    docs = list(db.collection("tickets").stream())
+    out = []
+    for d in docs:
+        data = d.to_dict()
+        data["ticket_id"] = d.id
+        if status:
+            if data.get("status", "").lower() == status.lower().strip():
+                out.append(data)
+        else:
+            out.append(data)
+
+    return json.dumps(
+        {
+            "total_tickets": len(out),
+            "tickets": out,
+        },
+        indent=2,
+    )
+
 
 
 def update_or_escalate_ticket(
@@ -465,6 +511,7 @@ root_agent = Agent(
         generate_diagnostic_diagram,
         create_ticket,
         get_ticket_status,
+        list_all_tickets,
         update_or_escalate_ticket,
         get_weather,
         get_current_time,

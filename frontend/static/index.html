@@ -32,16 +32,14 @@
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-main: 14px;
-    --radius-lg: 18px;
     
     --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Inter", "Segoe UI", Roboto, sans-serif;
     
-    --shadow-subtle: 0 2px 10px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.02);
-    --shadow-elevated: 0 4px 20px rgba(0, 0, 0, 0.04), 0 1px 4px rgba(0, 0, 0, 0.02);
-    --shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.06);
+    --shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.02);
+    --shadow-elevated: 0 4px 16px rgba(0, 0, 0, 0.04);
 
-    --sidebar-width: 250px;
-    --sidebar-collapsed-width: 72px;
+    --sidebar-width: 240px;
+    --sidebar-collapsed-width: 68px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -72,7 +70,7 @@
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
-    transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     z-index: 20;
     position: relative;
   }
@@ -82,41 +80,40 @@
   }
 
   .sidebar-header {
-    padding: 1.25rem 1.25rem;
+    padding: 1rem 1.15rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid var(--border-subtle);
-    height: 68px;
+    height: 64px;
   }
 
   .brand-group {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.65rem;
     overflow: hidden;
     white-space: nowrap;
   }
 
   .brand-logo {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     border-radius: var(--radius-sm);
-    background: linear-gradient(135deg, #0071e3 0%, #003679 100%);
+    background: #0071e3;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #ffffff;
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     flex-shrink: 0;
-    box-shadow: 0 2px 8px rgba(0, 113, 227, 0.25);
   }
 
   .brand-text {
     display: flex;
     flex-direction: column;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.18s ease;
   }
 
   .sidebar.collapsed .brand-text {
@@ -126,14 +123,14 @@
   }
 
   .brand-title {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: var(--text-primary);
     letter-spacing: -0.01em;
   }
 
   .brand-sub {
-    font-size: 0.75rem;
+    font-size: 0.725rem;
     color: var(--text-secondary);
   }
 
@@ -157,28 +154,28 @@
   }
 
   .sidebar-nav {
-    padding: 1rem 0.75rem;
+    padding: 0.85rem 0.65rem;
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.25rem;
     flex: 1;
   }
 
   .nav-item {
     display: flex;
     align-items: center;
-    gap: 0.85rem;
-    padding: 0.65rem 0.85rem;
+    gap: 0.75rem;
+    padding: 0.6rem 0.75rem;
     border-radius: var(--radius-md);
     background: transparent;
     border: none;
     color: var(--text-secondary);
     font-family: inherit;
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     font-weight: 500;
     cursor: pointer;
     text-align: left;
-    transition: all 0.18s ease;
+    transition: all 0.15s ease;
     white-space: nowrap;
     overflow: hidden;
     position: relative;
@@ -196,8 +193,8 @@
   }
 
   .nav-icon {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     stroke: currentColor;
     fill: none;
     stroke-width: 2;
@@ -207,7 +204,7 @@
   }
 
   .nav-label {
-    transition: opacity 0.2s ease;
+    transition: opacity 0.18s ease;
     flex: 1;
   }
 
@@ -217,29 +214,27 @@
   }
 
   .nav-badge {
-    background: #ff3b30;
+    background: #0071e3;
     color: #ffffff;
     font-size: 0.7rem;
-    font-weight: 700;
+    font-weight: 600;
     padding: 0.15rem 0.45rem;
     border-radius: 9999px;
     margin-left: auto;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.18s ease;
   }
 
-  .sidebar.collapsed .nav-badge {
-    opacity: 0;
-  }
+  .sidebar.collapsed .nav-badge { opacity: 0; }
 
   .sidebar-footer {
-    padding: 1rem 1.25rem;
+    padding: 0.85rem 1.15rem;
     border-top: 1px solid var(--border-subtle);
   }
 
   .status-widget {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.5rem;
     font-size: 0.75rem;
     color: var(--text-secondary);
     white-space: nowrap;
@@ -247,18 +242,14 @@
   }
 
   .status-dot {
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
-    background-color: #34c759;
-    box-shadow: 0 0 0 3px rgba(52, 199, 89, 0.2);
+    background-color: #0071e3;
     flex-shrink: 0;
   }
 
-  .sidebar.collapsed .status-widget-text {
-    opacity: 0;
-    pointer-events: none;
-  }
+  .sidebar.collapsed .status-widget-text { opacity: 0; pointer-events: none; }
 
   /* --------------------------------------------------------------------------
    * MAIN CONTENT & TOP HEADER
@@ -276,8 +267,8 @@
   .top-header {
     background: var(--bg-surface);
     border-bottom: 1px solid var(--border-subtle);
-    padding: 0 2rem;
-    height: 68px;
+    padding: 0 1.75rem;
+    height: 64px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -285,61 +276,58 @@
   }
 
   .header-titles h1 {
-    font-size: 1.125rem;
+    font-size: 1.1rem;
     font-weight: 600;
     letter-spacing: -0.015em;
     color: var(--text-primary);
   }
 
   .header-titles p {
-    font-size: 0.8125rem;
+    font-size: 0.78125rem;
     color: var(--text-secondary);
-    margin-top: 0.1rem;
+    margin-top: 0.05rem;
   }
 
   .header-actions {
     display: flex;
     align-items: center;
-    gap: 0.85rem;
+    gap: 0.75rem;
   }
 
   .live-pill {
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
-    padding: 0.35rem 0.75rem;
-    background: rgba(0, 113, 227, 0.06);
-    border: 1px solid rgba(0, 113, 227, 0.15);
+    gap: 0.4rem;
+    padding: 0.3rem 0.65rem;
+    background: var(--bg-main);
+    border: 1px solid var(--border-subtle);
     border-radius: 9999px;
     font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--accent-blue);
+    font-weight: 500;
+    color: var(--text-secondary);
   }
 
   .btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
+    gap: 0.45rem;
+    padding: 0.45rem 0.85rem;
     border-radius: var(--radius-sm);
     font-family: inherit;
-    font-size: 0.85rem;
+    font-size: 0.8125rem;
     font-weight: 600;
     cursor: pointer;
     border: 1px solid transparent;
-    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.15s ease;
   }
 
   .btn-primary {
     background: var(--accent-blue);
     color: #ffffff;
-    box-shadow: 0 1px 3px rgba(0, 113, 227, 0.25);
   }
 
   .btn-primary:hover {
     background: var(--accent-blue-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 3px 8px rgba(0, 113, 227, 0.3);
   }
 
   .btn-secondary {
@@ -354,15 +342,17 @@
   }
 
   /* --------------------------------------------------------------------------
-   * VIEWS CONTAINER
+   * VIEWS CONTAINER (FIXED SCROLLING)
    * ----------------------------------------------------------------------- */
   .view-panel {
     display: none;
     flex: 1;
     flex-direction: column;
     min-height: 0;
+    height: calc(100vh - 64px);
     overflow-y: auto;
-    padding: 1.75rem 2rem;
+    padding: 1.5rem 1.75rem 2.5rem;
+    -webkit-overflow-scrolling: touch;
   }
 
   .view-panel.active {
@@ -374,26 +364,21 @@
    * ----------------------------------------------------------------------- */
   .kpi-row {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.25rem;
-    margin-bottom: 1.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-shrink: 0;
   }
 
   .kpi-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-main);
-    padding: 1.25rem 1.35rem;
+    padding: 1.15rem 1.25rem;
     box-shadow: var(--shadow-subtle);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .kpi-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-elevated);
   }
 
   .kpi-header {
@@ -403,7 +388,7 @@
   }
 
   .kpi-title {
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
     font-weight: 600;
     color: var(--text-secondary);
     text-transform: uppercase;
@@ -411,8 +396,8 @@
   }
 
   .kpi-icon-wrapper {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     border-radius: var(--radius-sm);
     background: var(--bg-main);
     display: flex;
@@ -422,36 +407,29 @@
   }
 
   .kpi-value {
-    font-size: 1.85rem;
+    font-size: 1.75rem;
     font-weight: 700;
     letter-spacing: -0.03em;
     color: var(--text-primary);
-    margin: 0.65rem 0 0.2rem;
+    margin: 0.5rem 0 0.15rem;
   }
 
   .kpi-footer {
-    font-size: 0.75rem;
+    font-size: 0.725rem;
     color: var(--text-tertiary);
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
   }
-
-  .text-danger { color: #d70015 !important; }
-  .text-warning { color: #c77000 !important; }
-  .text-success { color: #1a7e34 !important; }
 
   .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: 1.25rem;
+    gap: 1.15rem;
   }
 
   .chart-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-main);
-    padding: 1.35rem;
+    padding: 1.25rem;
     box-shadow: var(--shadow-subtle);
     display: flex;
     flex-direction: column;
@@ -460,115 +438,94 @@
   .span-8 { grid-column: span 8; }
   .span-4 { grid-column: span 4; }
   .span-6 { grid-column: span 6; }
-  .span-12 { grid-column: span 12; }
 
   @media (max-width: 1024px) {
     .span-8, .span-4, .span-6 { grid-column: span 12; }
   }
 
   .card-header-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1.1rem;
+    margin-bottom: 1rem;
   }
 
   .card-header-row h3 {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: var(--text-primary);
   }
 
   .card-header-row p {
-    font-size: 0.78125rem;
+    font-size: 0.75rem;
     color: var(--text-secondary);
   }
 
   .chart-container-box {
     position: relative;
     flex: 1;
-    min-height: 220px;
+    min-height: 200px;
     width: 100%;
   }
 
-  /* SLA Watchlist Container */
   .watchlist-list {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.65rem;
   }
 
   .watchlist-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.85rem 1rem;
+    padding: 0.75rem 0.9rem;
     border-radius: var(--radius-md);
     background: var(--bg-main);
     border: 1px solid var(--border-subtle);
-    transition: border-color 0.15s ease;
-  }
-
-  .watchlist-item:hover {
-    border-color: var(--border-strong);
   }
 
   .watchlist-info {
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
+    gap: 0.15rem;
   }
 
   .watchlist-id {
-    font-size: 0.8125rem;
+    font-size: 0.8rem;
     font-weight: 700;
     color: var(--text-primary);
   }
 
   .watchlist-title {
-    font-size: 0.8125rem;
+    font-size: 0.78125rem;
     color: var(--text-secondary);
   }
 
-  .watchlist-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
   /* --------------------------------------------------------------------------
-   * VIEW 2: TICKETS WORKSPACE
+   * VIEW 2: TICKETS WORKSPACE (INDEPENDENT CLEAN SCROLLING)
    * ----------------------------------------------------------------------- */
   .filter-bar {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-main);
-    padding: 0.85rem 1.15rem;
+    padding: 0.75rem 1rem;
     box-shadow: var(--shadow-subtle);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 0.85rem;
-    margin-bottom: 1.1rem;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
   }
 
   .search-box {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.5rem;
     background: var(--bg-main);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-sm);
-    padding: 0.45rem 0.85rem;
+    padding: 0.4rem 0.75rem;
     flex: 1;
-    min-width: 240px;
-    transition: border-color 0.15s ease;
-  }
-
-  .search-box:focus-within {
-    border-color: var(--accent-blue);
-    background: #ffffff;
+    min-width: 220px;
   }
 
   .search-box input {
@@ -576,7 +533,7 @@
     background: transparent;
     outline: none;
     font-family: inherit;
-    font-size: 0.85rem;
+    font-size: 0.8125rem;
     color: var(--text-primary);
     width: 100%;
   }
@@ -584,7 +541,7 @@
   .filter-controls {
     display: flex;
     align-items: center;
-    gap: 0.65rem;
+    gap: 0.5rem;
     flex-wrap: wrap;
   }
 
@@ -592,17 +549,12 @@
     background: var(--bg-main);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-sm);
-    padding: 0.45rem 0.75rem;
+    padding: 0.4rem 0.65rem;
     font-family: inherit;
-    font-size: 0.8125rem;
+    font-size: 0.78125rem;
     color: var(--text-primary);
     outline: none;
     cursor: pointer;
-    transition: border-color 0.15s ease;
-  }
-
-  .select-input:hover {
-    border-color: var(--border-strong);
   }
 
   .active-pills-row {
@@ -610,19 +562,20 @@
     align-items: center;
     gap: 0.5rem;
     flex-wrap: wrap;
-    margin-bottom: 1.1rem;
+    margin-bottom: 0.85rem;
+    flex-shrink: 0;
   }
 
   .filter-pill {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
+    gap: 0.3rem;
     background: var(--accent-blue-subtle);
     color: var(--accent-blue);
     border: 1px solid rgba(0, 113, 227, 0.2);
-    padding: 0.25rem 0.65rem;
+    padding: 0.2rem 0.55rem;
     border-radius: 9999px;
-    font-size: 0.75rem;
+    font-size: 0.725rem;
     font-weight: 600;
   }
 
@@ -631,18 +584,19 @@
     border: none;
     color: currentColor;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     display: flex;
     align-items: center;
   }
 
+  /* Table Container - Natural Scroll */
   .ticket-table-card {
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-main);
     box-shadow: var(--shadow-subtle);
-    overflow: hidden;
-    flex: 1;
+    width: 100%;
+    margin-bottom: 2rem;
   }
 
   .table-wrapper {
@@ -654,12 +608,15 @@
     width: 100%;
     border-collapse: collapse;
     text-align: left;
-    font-size: 0.85rem;
+    font-size: 0.8125rem;
   }
 
   table.ticket-table th {
+    position: sticky;
+    top: 0;
+    z-index: 5;
     background: var(--bg-surface-elevated);
-    padding: 0.85rem 1.15rem;
+    padding: 0.75rem 1rem;
     font-weight: 600;
     color: var(--text-secondary);
     border-bottom: 1px solid var(--border-subtle);
@@ -667,19 +624,14 @@
   }
 
   table.ticket-table td {
-    padding: 0.95rem 1.15rem;
+    padding: 0.85rem 1rem;
     border-bottom: 1px solid var(--border-subtle);
     color: var(--text-primary);
     vertical-align: middle;
   }
 
-  table.ticket-table tr:last-child td {
-    border-bottom: none;
-  }
-
-  table.ticket-table tr:hover td {
-    background: rgba(245, 246, 248, 0.6);
-  }
+  table.ticket-table tr:last-child td { border-bottom: none; }
+  table.ticket-table tr:hover td { background: var(--bg-main); }
 
   .ticket-id-link {
     font-weight: 700;
@@ -688,70 +640,50 @@
     cursor: pointer;
   }
 
-  .ticket-id-link:hover {
-    text-decoration: underline;
-  }
+  .ticket-id-link:hover { text-decoration: underline; }
 
-  /* Badges */
+  /* Badges - Restrained Apple Tones */
   .badge {
     display: inline-flex;
     align-items: center;
-    padding: 0.25rem 0.65rem;
+    padding: 0.2rem 0.55rem;
     border-radius: 6px;
-    font-size: 0.725rem;
+    font-size: 0.7rem;
     font-weight: 600;
     letter-spacing: 0.02em;
     white-space: nowrap;
   }
 
-  .badge-p1 { background: rgba(255, 59, 48, 0.12); color: #d70015; border: 1px solid rgba(255, 59, 48, 0.22); }
-  .badge-p2 { background: rgba(255, 149, 0, 0.12); color: #c77000; border: 1px solid rgba(255, 149, 0, 0.22); }
+  .badge-p1 { background: rgba(255, 59, 48, 0.12); color: #d70015; border: 1px solid rgba(255, 59, 48, 0.2); }
+  .badge-p2 { background: rgba(255, 149, 0, 0.12); color: #c77000; border: 1px solid rgba(255, 149, 0, 0.2); }
   .badge-p3 { background: rgba(255, 204, 0, 0.15); color: #8f6b00; border: 1px solid rgba(255, 204, 0, 0.25); }
-  .badge-p4 { background: rgba(52, 199, 89, 0.12); color: #1a7e34; border: 1px solid rgba(52, 199, 89, 0.22); }
+  .badge-p4 { background: rgba(52, 199, 89, 0.12); color: #1a7e34; border: 1px solid rgba(52, 199, 89, 0.2); }
 
-  .badge-open { background: rgba(0, 113, 227, 0.1); color: #0071e3; border: 1px solid rgba(0, 113, 227, 0.2); }
-  .badge-in_progress { background: rgba(175, 82, 222, 0.12); color: #af52de; border: 1px solid rgba(175, 82, 222, 0.2); }
-  .badge-escalated { background: rgba(255, 59, 48, 0.12); color: #d70015; border: 1px solid rgba(255, 59, 48, 0.22); }
-  .badge-resolved { background: rgba(52, 199, 89, 0.12); color: #1a7e34; border: 1px solid rgba(52, 199, 89, 0.22); }
+  .badge-open { background: rgba(0, 113, 227, 0.08); color: #0071e3; border: 1px solid rgba(0, 113, 227, 0.18); }
+  .badge-in_progress { background: rgba(175, 82, 222, 0.1); color: #af52de; border: 1px solid rgba(175, 82, 222, 0.18); }
+  .badge-escalated { background: rgba(255, 59, 48, 0.1); color: #d70015; border: 1px solid rgba(255, 59, 48, 0.2); }
+  .badge-resolved { background: rgba(52, 199, 89, 0.1); color: #1a7e34; border: 1px solid rgba(52, 199, 89, 0.18); }
 
   .empty-state {
-    padding: 3.5rem 2rem;
+    padding: 3rem 1.5rem;
     text-align: center;
     color: var(--text-secondary);
-  }
-
-  .empty-state svg {
-    width: 48px;
-    height: 48px;
-    stroke: var(--text-tertiary);
-    margin-bottom: 0.85rem;
-  }
-
-  .empty-state h4 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 0.35rem;
   }
 
   /* --------------------------------------------------------------------------
    * VIEW 3: AI CHAT WORKSPACE
    * ----------------------------------------------------------------------- */
-  #view-chat {
-    padding: 0;
-    overflow: hidden;
-  }
+  #view-chat { padding: 0; overflow: hidden; }
 
   #chat-container {
     flex: 1;
     min-height: 0;
     display: flex;
     flex-direction: column;
-    max-width: 900px;
+    max-width: 880px;
     width: 100%;
     margin: 0 auto;
     overflow: hidden;
-    position: relative;
     height: 100%;
   }
 
@@ -759,10 +691,10 @@
     flex: 1;
     min-height: 0;
     overflow-y: auto;
-    padding: 1.75rem 1.5rem;
+    padding: 1.5rem 1.25rem;
     display: flex;
     flex-direction: column;
-    gap: 1.35rem;
+    gap: 1.25rem;
     scroll-behavior: smooth;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -770,31 +702,26 @@
 
   #log::-webkit-scrollbar { display: none; }
 
-  .msg-row {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
+  .msg-row { display: flex; flex-direction: column; width: 100%; }
   .msg-row.user { align-items: flex-end; }
   .msg-row.agent { align-items: flex-start; }
 
   .msg-sender-label {
-    font-size: 0.725rem;
+    font-size: 0.7rem;
     font-weight: 600;
     color: var(--text-tertiary);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    margin-bottom: 0.35rem;
-    padding: 0 0.3rem;
+    margin-bottom: 0.3rem;
+    padding: 0 0.25rem;
   }
 
   .bubble {
     max-width: 86%;
-    padding: 0.925rem 1.25rem;
+    padding: 0.85rem 1.15rem;
     border-radius: var(--radius-main);
-    font-size: 0.9375rem;
-    line-height: 1.55;
+    font-size: 0.9rem;
+    line-height: 1.5;
     word-break: break-word;
     white-space: pre-wrap;
     box-shadow: var(--shadow-subtle);
@@ -826,12 +753,12 @@
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    padding: 0.4rem 0.2rem;
+    padding: 0.3rem 0.2rem;
   }
 
   .typing-dot {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background-color: var(--text-tertiary);
     animation: typingPulse 1.4s infinite ease-in-out both;
@@ -850,25 +777,25 @@
     background: var(--bg-surface);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-main);
-    padding: 1.35rem;
+    padding: 1.25rem;
     box-shadow: var(--shadow-elevated);
     max-width: 100%;
     width: 100%;
   }
 
-  .a2card + .a2card, .a2col > .a2card { margin-top: 0.85rem; }
-  .a2col { display: flex; flex-direction: column; gap: 0.65rem; }
-  .a2row { display: flex; flex-direction: row; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+  .a2card + .a2card, .a2col > .a2card { margin-top: 0.75rem; }
+  .a2col { display: flex; flex-direction: column; gap: 0.55rem; }
+  .a2row { display: flex; flex-direction: row; gap: 0.65rem; align-items: center; flex-wrap: wrap; }
   .a2row.between { justify-content: space-between; }
 
-  .a2text { margin: 0; line-height: 1.5; color: var(--text-primary); font-size: 0.9375rem; }
-  .a2text.a2-h1 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; color: var(--text-primary); }
-  .a2text.a2-h2 { font-size: 1.18rem; font-weight: 700; letter-spacing: -0.01em; color: var(--text-primary); }
-  .a2text.a2-h3 { font-size: 1.05rem; font-weight: 600; color: var(--text-primary); }
-  .a2text.a2-caption { font-size: 0.8125rem; color: var(--text-secondary); }
+  .a2text { margin: 0; line-height: 1.5; color: var(--text-primary); font-size: 0.9rem; }
+  .a2text.a2-h1 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; color: var(--text-primary); }
+  .a2text.a2-h2 { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.01em; color: var(--text-primary); }
+  .a2text.a2-h3 { font-size: 1rem; font-weight: 600; color: var(--text-primary); }
+  .a2text.a2-caption { font-size: 0.8rem; color: var(--text-secondary); }
 
-  .a2divider { border: none; border-top: 1px solid var(--border-subtle); margin: 0.85rem 0; width: 100%; }
-  .a2img { max-width: 100%; border-radius: var(--radius-main); display: block; margin-top: 0.85rem; border: 1px solid var(--border-subtle); box-shadow: var(--shadow-subtle); }
+  .a2divider { border: none; border-top: 1px solid var(--border-subtle); margin: 0.75rem 0; width: 100%; }
+  .a2img { max-width: 100%; border-radius: var(--radius-main); display: block; margin-top: 0.75rem; border: 1px solid var(--border-subtle); }
 
   .prompt-suggestions {
     display: flex !important;
@@ -876,10 +803,9 @@
     flex-wrap: wrap !important;
     gap: 8px !important;
     align-items: center !important;
-    padding: 10px 24px 12px 24px !important;
+    padding: 8px 20px 10px 20px !important;
     margin: 0 !important;
     width: 100% !important;
-    box-sizing: border-box !important;
     flex-shrink: 0 !important;
   }
 
@@ -887,49 +813,44 @@
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 7px 15px !important;
+    padding: 6px 14px !important;
     border-radius: 9999px !important;
     background-color: #ffffff !important;
     border: 1px solid var(--border-subtle) !important;
     color: var(--text-secondary) !important;
     font-family: inherit !important;
-    font-size: 13px !important;
+    font-size: 12.5px !important;
     font-weight: 500 !important;
     white-space: nowrap !important;
     cursor: pointer !important;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.03) !important;
-    transition: all 0.18s ease !important;
+    transition: all 0.15s ease !important;
   }
 
   .prompt-chip:hover {
     border-color: var(--border-strong) !important;
     color: var(--text-primary) !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
-    transform: translateY(-1px) !important;
   }
 
   .input-wrapper {
     background: var(--bg-main);
     border-top: 1px solid var(--border-subtle);
-    padding: 1.1rem 1.5rem 1.35rem;
+    padding: 1rem 1.25rem 1.15rem;
     flex-shrink: 0;
   }
 
   form#form {
     display: flex;
-    gap: 0.75rem;
+    gap: 0.65rem;
     align-items: center;
     background: var(--bg-input);
     border: 1px solid var(--border-strong);
     border-radius: var(--radius-main);
-    padding: 0.45rem 0.55rem 0.45rem 1.0rem;
-    box-shadow: var(--shadow-subtle);
-    transition: all 0.2s ease;
+    padding: 0.4rem 0.5rem 0.4rem 0.85rem;
+    transition: all 0.18s ease;
   }
 
   form#form:focus-within {
     border-color: var(--accent-blue);
-    box-shadow: 0 0 0 3px var(--accent-blue-subtle);
   }
 
   form#form input {
@@ -939,32 +860,26 @@
     outline: none;
     color: var(--text-primary);
     font-family: var(--font-stack);
-    font-size: 0.9375rem;
-    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    padding: 0.45rem 0;
   }
 
   form#form button[type="submit"] {
     background: var(--accent-blue);
     color: #ffffff;
     border: none;
-    border-radius: 10px;
-    width: 38px;
-    height: 38px;
+    border-radius: 9px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.18s ease;
     flex-shrink: 0;
   }
 
-  form#form button[type="submit"]:hover {
-    background: var(--accent-blue-hover);
-    transform: scale(1.03);
-  }
-
   form#form button[type="submit"] svg {
-    width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
   }
 
   /* --------------------------------------------------------------------------
@@ -973,39 +888,34 @@
   .modal-backdrop {
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(3px);
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(2px);
     z-index: 100;
     display: flex;
     justify-content: flex-end;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.25s ease;
+    transition: opacity 0.22s ease;
   }
 
-  .modal-backdrop.show {
-    opacity: 1;
-    pointer-events: auto;
-  }
+  .modal-backdrop.show { opacity: 1; pointer-events: auto; }
 
   .modal-card {
-    width: 540px;
+    width: 520px;
     max-width: 90vw;
     height: 100%;
     background: var(--bg-surface);
-    box-shadow: -4px 0 30px rgba(0,0,0,0.1);
+    box-shadow: -4px 0 24px rgba(0,0,0,0.08);
     display: flex;
     flex-direction: column;
     transform: translateX(100%);
-    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .modal-backdrop.show .modal-card {
-    transform: translateX(0);
-  }
+  .modal-backdrop.show .modal-card { transform: translateX(0); }
 
   .modal-header {
-    padding: 1.35rem 1.5rem;
+    padding: 1.25rem 1.35rem;
     border-bottom: 1px solid var(--border-subtle);
     display: flex;
     align-items: flex-start;
@@ -1013,64 +923,41 @@
   }
 
   .modal-ticket-id {
-    font-size: 0.78125rem;
+    font-size: 0.75rem;
     font-weight: 700;
     color: var(--accent-blue);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
   }
 
   .modal-title {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--text-primary);
-    margin-top: 0.2rem;
+    margin-top: 0.15rem;
   }
 
   .modal-close-btn {
     background: transparent;
     border: none;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     color: var(--text-tertiary);
     cursor: pointer;
-    line-height: 1;
   }
 
   .modal-body {
-    padding: 1.5rem;
+    padding: 1.35rem;
     overflow-y: auto;
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 1.35rem;
+    gap: 1.25rem;
   }
 
-  .detail-section {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
+  .detail-section { display: flex; flex-direction: column; gap: 0.4rem; }
+  .detail-label { font-size: 0.725rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; }
+  .detail-value { font-size: 0.9rem; color: var(--text-primary); }
+  .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; }
 
-  .detail-label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-  }
-
-  .detail-value {
-    font-size: 0.9375rem;
-    color: var(--text-primary);
-  }
-
-  .grid-2col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  /* Utility hidden */
   .hidden { display: none !important; }
 </style>
 </head>
@@ -1098,9 +985,9 @@
         <span class="nav-label">Dashboard</span>
       </button>
       <button class="nav-item" data-view="tickets">
-        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
         <span class="nav-label">Tickets</span>
-        <span class="nav-badge" id="open-count-badge">5</span>
+        <span class="nav-badge" id="open-count-badge">0</span>
       </button>
       <button class="nav-item" data-view="chat">
         <svg class="nav-icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
@@ -1111,7 +998,7 @@
     <div class="sidebar-footer">
       <div class="status-widget">
         <span class="status-dot"></span>
-        <span class="status-widget-text">Agent Operational (v2.5)</span>
+        <span class="status-widget-text">Agent Engine Connected</span>
       </div>
     </div>
   </aside>
@@ -1121,7 +1008,7 @@
     <header class="top-header">
       <div class="header-titles">
         <h1 id="page-title">IT Operations Dashboard</h1>
-        <p id="page-subtitle">Real-time incident telemetry, SLA risks, and automated triage</p>
+        <p id="page-subtitle">Real-time incident telemetry, SLA monitoring, and automated triage</p>
       </div>
       <div class="header-actions">
         <div class="live-pill">
@@ -1141,47 +1028,45 @@
         <div class="kpi-card">
           <div class="kpi-header">
             <span class="kpi-title">Total Tickets</span>
-            <div class="kpi-icon-wrapper"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg></div>
+            <div class="kpi-icon-wrapper"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path></svg></div>
           </div>
-          <div class="kpi-value" id="kpi-total">8</div>
-          <div class="kpi-footer"><span>Catalog total</span></div>
+          <div class="kpi-value" id="kpi-total">0</div>
+          <div class="kpi-footer"><span>Firestore dataset total</span></div>
         </div>
 
         <div class="kpi-card">
           <div class="kpi-header">
             <span class="kpi-title">Open & Active</span>
-            <div class="kpi-icon-wrapper"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+            <div class="kpi-icon-wrapper"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
           </div>
-          <div class="kpi-value text-warning" id="kpi-open">5</div>
-          <div class="kpi-footer"><span>Requires team triage</span></div>
+          <div class="kpi-value" id="kpi-open" style="color:var(--accent-blue);">0</div>
+          <div class="kpi-footer"><span>Requires action</span></div>
         </div>
 
         <div class="kpi-card">
           <div class="kpi-header">
             <span class="kpi-title">Critical (P1/P2)</span>
-            <div class="kpi-icon-wrapper"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></div>
+            <div class="kpi-icon-wrapper"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path></svg></div>
           </div>
-          <div class="kpi-value text-danger" id="kpi-critical">3</div>
+          <div class="kpi-value" id="kpi-critical" style="color:#d70015;">0</div>
           <div class="kpi-footer"><span>High SLA Priority</span></div>
         </div>
 
         <div class="kpi-card">
           <div class="kpi-header">
             <span class="kpi-title">Resolved</span>
-            <div class="kpi-icon-wrapper"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
+            <div class="kpi-icon-wrapper"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
           </div>
-          <div class="kpi-value text-success" id="kpi-resolved">2</div>
-          <div class="kpi-footer"><span>Closed on time</span></div>
+          <div class="kpi-value" id="kpi-resolved" style="color:#1a7e34;">0</div>
+          <div class="kpi-footer"><span>Closed tickets</span></div>
         </div>
       </div>
 
       <div class="dashboard-grid">
         <div class="chart-card span-8">
           <div class="card-header-row">
-            <div>
-              <h3>Weekly Incident Telemetry & Resolution Trends</h3>
-              <p>7-Day rolling volume across infrastructure & support teams</p>
-            </div>
+            <h3>Weekly Incident Volume & Resolution Trends</h3>
+            <p>Rolling telemetry across engineering groups</p>
           </div>
           <div class="chart-container-box">
             <canvas id="chart-trends"></canvas>
@@ -1190,10 +1075,8 @@
 
         <div class="chart-card span-4">
           <div class="card-header-row">
-            <div>
-              <h3>Priority Distribution</h3>
-              <p>Severity breakdown P1 to P4</p>
-            </div>
+            <h3>Priority Distribution</h3>
+            <p>Severity breakdown P1 to P4</p>
           </div>
           <div class="chart-container-box">
             <canvas id="chart-priority"></canvas>
@@ -1202,10 +1085,8 @@
 
         <div class="chart-card span-6">
           <div class="card-header-row">
-            <div>
-              <h3>Team Assignment Distribution</h3>
-              <p>Active workload by engineering group</p>
-            </div>
+            <h3>Team Distribution</h3>
+            <p>Workload by engineering group</p>
           </div>
           <div class="chart-container-box">
             <canvas id="chart-team"></canvas>
@@ -1214,10 +1095,8 @@
 
         <div class="chart-card span-6">
           <div class="card-header-row">
-            <div>
-              <h3>SLA Risk Watchlist</h3>
-              <p>Highest urgency tickets near SLA deadline</p>
-            </div>
+            <h3>SLA Risk Watchlist</h3>
+            <p>Highest urgency tickets near SLA deadline</p>
           </div>
           <div class="watchlist-list" id="watchlist-container">
             <!-- Dynamically populated -->
@@ -1226,11 +1105,11 @@
       </div>
     </section>
 
-    <!-- VIEW 2: TICKETS WORKSPACE -->
+    <!-- VIEW 2: TICKETS WORKSPACE (FULL NATURAL SCROLL) -->
     <section class="view-panel" id="view-tickets">
       <div class="filter-bar">
         <div class="search-box">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           <input type="text" id="ticket-search" placeholder="Search ticket ID, title, requestor, or team...">
         </div>
 
@@ -1254,9 +1133,9 @@
           <select id="filter-team" class="select-input">
             <option value="all">All Teams</option>
             <option value="Site Reliability Engineering (SRE)">SRE</option>
-            <option value="Network Operations (NetOps)">NetOps</option>
-            <option value="Identity & Security">Identity & Security</option>
-            <option value="End User Support">End User Support</option>
+            <option value="Network Operations">NetOps</option>
+            <option value="Identity & Access Management (IAM)">IAM / Security</option>
+            <option value="Endpoint Hardware Support">Hardware Support</option>
           </select>
 
           <button id="btn-reset-filters" class="btn btn-secondary">Reset Filters</button>
@@ -1271,22 +1150,21 @@
             <thead>
               <tr>
                 <th>Ticket ID</th>
-                <th>Title / Summary</th>
+                <th>Title / Issue Description</th>
                 <th>Priority</th>
                 <th>Status</th>
                 <th>Assigned Team</th>
                 <th>Requestor</th>
-                <th>SLA Deadline</th>
-                <th>Actions</th>
+                <th>SLA Status</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody id="ticket-table-body">
-              <!-- Dynamically populated -->
+              <!-- Dynamically populated from Firestore -->
             </tbody>
           </table>
         </div>
         <div class="empty-state hidden" id="empty-state">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="9" y1="15" x2="15" y2="15"></line></svg>
           <h4>No matching tickets found</h4>
           <p>Try resetting your search query or dropdown filters.</p>
         </div>
@@ -1300,8 +1178,8 @@
 
         <div class="prompt-suggestions">
           <button type="button" class="prompt-chip" data-prompt="Check status of TICKET-1001">Check status of TICKET-1001</button>
-          <button type="button" class="prompt-chip" data-prompt="My VPN keeps dropping on macOS">My VPN keeps dropping on macOS</button>
-          <button type="button" class="prompt-chip" data-prompt="Create a ticket for a broken monitor">Create a ticket for a broken monitor</button>
+          <button type="button" class="prompt-chip" data-prompt="Show all tickets">Show all tickets</button>
+          <button type="button" class="prompt-chip" data-prompt="My VPN keeps dropping on macOS">VPN dropping on macOS</button>
           <button type="button" class="prompt-chip" data-prompt="Escalate ticket TICKET-1001 to P1">Escalate TICKET-1001</button>
         </div>
 
@@ -1336,33 +1214,62 @@
 
 <script>
 /* ----------------------------------------------------------------------------
- * DATA STORE & INITIAL SEED DATA
+ * DATA STORE & FIRESTORE FETCH (SINGLE SOURCE OF TRUTH)
  * -------------------------------------------------------------------------- */
-const initialTickets = [
-  { id: "TICKET-1001", title: "Database Connection Pool Exhaustion in Production", priority: "P1", status: "open", team: "Site Reliability Engineering (SRE)", requestor: "Alex Chen (DevOps Lead)", sla: "0.2h remaining", created: "2026-09-21 21:00", description: "Primary Postgres pool connections maxed out at 100/100 following microservice deployment." },
-  { id: "TICKET-1002", title: "VPN Authentication Handshake Failures on macOS Sequoia", priority: "P2", status: "in_progress", team: "Network Operations (NetOps)", requestor: "Sarah Jenkins (Senior Architect)", sla: "2.5h remaining", created: "2026-09-21 19:15", description: "WireGuard tunnel drops during key negotiation after updating to macOS 15.1." },
-  { id: "TICKET-1003", title: "SSO Okta Token Renewal Expiration Loop", priority: "P2", status: "open", team: "Identity & Security", requestor: "David Miller (Staff Engineer)", sla: "1.8h remaining", created: "2026-09-21 20:30", description: "OAuth token refresh requests failing with HTTP 401 for remote workers." },
-  { id: "TICKET-1004", title: "Dual Monitor USB-C DisplayPort Link Instability", priority: "P4", status: "resolved", team: "End User Support", requestor: "Emily Wong (Product Manager)", sla: "Resolved on time", created: "2026-09-21 14:00", description: "Secondary 4K monitor flickering when docked via Dell Thunderbolt hub." },
-  { id: "TICKET-1005", title: "Kubernetes Ingress Controller Certificate Renewal Failure", priority: "P1", status: "escalated", team: "Site Reliability Engineering (SRE)", requestor: "Marcus Vance (VP Engineering)", sla: "0.1h remaining", created: "2026-09-21 21:45", description: "Let's Encrypt cert-manager ACME challenge timing out on ingress-nginx cluster." },
-  { id: "TICKET-1006", title: "Wi-Fi 6E AP Handover Latency Spikes in Executive Suite", priority: "P3", status: "in_progress", team: "Network Operations (NetOps)", requestor: "Elena Rostova (Executive Assistant)", sla: "5.2h remaining", created: "2026-09-21 18:00", description: "Packet loss during roam between Floor 4 AP-102 and AP-103." },
-  { id: "TICKET-1007", title: "MacBook Pro M3 Max Kernel Panic on Sleep Wake", priority: "P3", status: "open", team: "End User Support", requestor: "James Taylor (Design Lead)", sla: "6.0h remaining", created: "2026-09-21 17:30", description: "System reboots when waking from clamshell sleep mode." },
-  { id: "TICKET-1008", title: "YubiKey 5C NFC Security Key Registration Timeout", priority: "P4", status: "resolved", team: "Identity & Security", requestor: "Rachel Adams (Security Analyst)", sla: "Resolved on time", created: "2026-09-21 12:15", description: "FIDO2 WebAuthn credential registration failing in Chrome browser." }
-];
-
-let tickets = [...initialTickets];
+let tickets = [];
 let currentView = 'dashboard';
 let filters = { search: '', status: 'all', priority: 'all', team: 'all' };
 
-/* Chart instances */
 let trendsChartInstance = null;
 let priorityChartInstance = null;
 let teamChartInstance = null;
+
+async function loadTicketsFromBackend() {
+  try {
+    const res = await fetch("/api/tickets");
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data.tickets)) {
+        tickets = data.tickets.map(t => ({
+          id: t.ticket_id || t.id || "TICKET-UNKNOWN",
+          title: t.issue_description || t.title || "No description provided",
+          priority: (t.priority || "P3").toUpperCase(),
+          status: (t.status || "open").toLowerCase().replace('-', '_'),
+          team: t.assigned_team || t.team || "General IT Helpdesk",
+          requestor: t.employee_name ? `${t.employee_name}${t.role ? ' (' + t.role + ')' : ''}` : (t.requestor || "Anonymous User"),
+          department: t.department || "IT",
+          created: t.created_at || new Date().toISOString(),
+          sla: t.sla_deadline ? calculateSlaRemaining(t.created_at, t.sla_deadline, t.priority) : "Active",
+          description: t.issue_description || t.description || ""
+        }));
+      }
+    }
+  } catch (err) {
+    console.error("Failed to load tickets from Firestore:", err);
+  }
+
+  if (currentView === 'dashboard') renderDashboard();
+  else if (currentView === 'tickets') renderTickets();
+}
+
+function calculateSlaRemaining(createdAt, slaDeadline, priority) {
+  try {
+    const deadlineDt = new Date(slaDeadline);
+    const now = new Date();
+    const diffMs = deadlineDt - now;
+    if (diffMs <= 0) return "SLA Breached";
+    const diffHours = (diffMs / (1000 * 60 * 60)).toFixed(1);
+    return `${diffHours}h remaining`;
+  } catch (e) {
+    return "Active";
+  }
+}
 
 /* ----------------------------------------------------------------------------
  * NAVIGATION & VIEW SWITCHING
  * -------------------------------------------------------------------------- */
 const pageTitles = {
-  dashboard: { title: "IT Operations Dashboard", sub: "Real-time incident telemetry, SLA risks, and automated triage" },
+  dashboard: { title: "IT Operations Dashboard", sub: "Real-time incident telemetry, SLA monitoring, and automated triage" },
   tickets: { title: "Ticket Management Workspace", sub: "Enterprise ticket ledger, search, filters, and priority queues" },
   chat: { title: "Nova Concierge Assistant", sub: "Autonomous Tier-1.5 AI agent with role-aware triage & tool execution" }
 };
@@ -1380,11 +1287,8 @@ function switchView(viewName) {
   document.getElementById("page-title").textContent = headerInfo.title;
   document.getElementById("page-subtitle").textContent = headerInfo.sub;
 
-  if (viewName === 'dashboard') {
-    renderDashboard();
-  } else if (viewName === 'tickets') {
-    renderTickets();
-  }
+  if (viewName === 'dashboard') renderDashboard();
+  else if (viewName === 'tickets') renderTickets();
 }
 
 document.querySelectorAll(".nav-item").forEach(btn => {
@@ -1424,7 +1328,7 @@ function renderWatchlist() {
   const urgent = tickets.filter(t => (t.priority === 'P1' || t.priority === 'P2') && t.status !== 'resolved');
 
   if (urgent.length === 0) {
-    container.innerHTML = '<div style="padding:1.5rem; text-align:center; color:var(--text-secondary); font-size:0.85rem;">No critical SLA risks at this time.</div>';
+    container.innerHTML = '<div style="padding:1.25rem; text-align:center; color:var(--text-secondary); font-size:0.8125rem;">No critical SLA risks at this time.</div>';
     return;
   }
 
@@ -1436,9 +1340,8 @@ function renderWatchlist() {
         <span class="watchlist-id">${t.id} &bull; <span style="font-weight:500;">${t.team}</span></span>
         <span class="watchlist-title">${t.title}</span>
       </div>
-      <div class="watchlist-meta">
+      <div>
         <span class="badge badge-${t.priority.toLowerCase()}">${t.priority}</span>
-        <span class="text-danger" style="font-size:0.8125rem; font-weight:600;">${t.sla}</span>
       </div>
     `;
     item.style.cursor = "pointer";
@@ -1450,7 +1353,6 @@ function renderWatchlist() {
 function renderCharts() {
   if (typeof Chart === 'undefined') return;
 
-  // 1. Weekly Trends
   const ctxTrends = document.getElementById("chart-trends")?.getContext("2d");
   if (ctxTrends) {
     if (trendsChartInstance) trendsChartInstance.destroy();
@@ -1460,29 +1362,29 @@ function renderCharts() {
         labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         datasets: [
           {
-            label: 'Incidents Reported',
+            label: 'Incidents',
             data: [4, 6, 9, 5, 8, 3, tickets.length],
             borderColor: '#0071e3',
-            backgroundColor: 'rgba(0, 113, 227, 0.06)',
+            backgroundColor: 'rgba(0, 113, 227, 0.05)',
             fill: true,
             tension: 0.35,
             borderWidth: 2
           },
           {
             label: 'Resolved',
-            data: [3, 5, 8, 5, 7, 3, 5],
-            borderColor: '#34c759',
+            data: [3, 5, 8, 5, 7, 3, tickets.filter(t => t.status === 'resolved').length],
+            borderColor: '#1a7e34',
             backgroundColor: 'transparent',
             tension: 0.35,
             borderWidth: 2,
-            borderDash: [4, 4]
+            borderDash: [3, 3]
           }
         ]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        plugins: { legend: { position: 'top', labels: { font: { family: '-apple-system, Inter, sans-serif', size: 12 } } } },
+        plugins: { legend: { position: 'top', labels: { font: { family: '-apple-system, Inter, sans-serif', size: 11 } } } },
         scales: {
           x: { grid: { display: false } },
           y: { grid: { color: '#e5e5e7' }, beginAtZero: true }
@@ -1491,7 +1393,6 @@ function renderCharts() {
     });
   }
 
-  // 2. Priority Distribution
   const ctxPriority = document.getElementById("chart-priority")?.getContext("2d");
   if (ctxPriority) {
     if (priorityChartInstance) priorityChartInstance.destroy();
@@ -1521,24 +1422,24 @@ function renderCharts() {
     });
   }
 
-  // 3. Team Distribution
   const ctxTeam = document.getElementById("chart-team")?.getContext("2d");
   if (ctxTeam) {
     if (teamChartInstance) teamChartInstance.destroy();
     const teamsMap = {};
     tickets.forEach(t => {
-      teamsMap[t.team] = (teamsMap[t.team] || 0) + 1;
+      const label = t.team.replace(/ \(.+\)/, '');
+      teamsMap[label] = (teamsMap[label] || 0) + 1;
     });
 
     teamChartInstance = new Chart(ctxTeam, {
       type: 'bar',
       data: {
-        labels: Object.keys(teamsMap).map(k => k.replace(/ \(.+\)/, '')),
+        labels: Object.keys(teamsMap),
         datasets: [{
-          label: 'Active Tickets',
+          label: 'Tickets',
           data: Object.values(teamsMap),
           backgroundColor: '#0071e3',
-          borderRadius: 6
+          borderRadius: 4
         }]
       },
       options: {
@@ -1589,7 +1490,7 @@ function renderTickets() {
       t.team.toLowerCase().includes(filters.search);
     const matchStatus = filters.status === 'all' || t.status === filters.status;
     const matchPriority = filters.priority === 'all' || t.priority === filters.priority;
-    const matchTeam = filters.team === 'all' || t.team === filters.team;
+    const matchTeam = filters.team === 'all' || t.team.includes(filters.team);
     return matchSearch && matchStatus && matchPriority && matchTeam;
   });
 
@@ -1603,13 +1504,13 @@ function renderTickets() {
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td><a class="ticket-id-link" data-id="${t.id}">${t.id}</a></td>
-        <td style="font-weight:500; max-width:280px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${t.title}</td>
+        <td style="font-weight:500; max-width:320px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${t.title}</td>
         <td><span class="badge badge-${t.priority.toLowerCase()}">${t.priority}</span></td>
         <td><span class="badge badge-${t.status}">${t.status.replace('_', ' ').toUpperCase()}</span></td>
         <td style="color:var(--text-secondary);">${t.team}</td>
         <td style="color:var(--text-secondary);">${t.requestor}</td>
-        <td style="font-size:0.8125rem; font-weight:500;">${t.sla}</td>
-        <td><button class="btn btn-secondary btn-view-ticket" data-id="${t.id}" style="padding:0.3rem 0.65rem; font-size:0.75rem;">View</button></td>
+        <td style="font-size:0.78125rem; font-weight:500;">${t.sla}</td>
+        <td><button class="btn btn-secondary btn-view-ticket" data-id="${t.id}" style="padding:0.25rem 0.55rem; font-size:0.75rem;">View</button></td>
       `;
       tbody.appendChild(tr);
     });
@@ -1679,18 +1580,17 @@ function openTicketModal(ticket) {
     </div>
 
     <div class="detail-section">
-      <span class="detail-label">SLA Countdown / Status</span>
-      <div class="detail-value text-danger" style="font-weight:600;">${ticket.sla}</div>
+      <span class="detail-label">SLA Status</span>
+      <div class="detail-value" style="font-weight:600; color:var(--accent-blue);">${ticket.sla}</div>
     </div>
 
     <div class="detail-section">
       <span class="detail-label">Description / Context</span>
-      <div class="detail-value" style="line-height:1.5; background:var(--bg-main); padding:0.85rem; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">${ticket.description || "No description provided."}</div>
+      <div class="detail-value" style="line-height:1.5; background:var(--bg-main); padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">${ticket.description}</div>
     </div>
 
-    <div style="margin-top:1rem; display:flex; gap:0.75rem;">
+    <div style="margin-top:0.75rem; display:flex; gap:0.65rem;">
       <button class="btn btn-primary" id="btn-chat-about" style="flex:1;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
         Ask Nova About Ticket
       </button>
       <button class="btn btn-secondary" id="btn-escalate-chat">
@@ -1704,18 +1604,18 @@ function openTicketModal(ticket) {
   document.getElementById("btn-chat-about").addEventListener("click", () => {
     modal.classList.remove("show");
     switchView('chat');
-    sendMessage(`What is the full status and SLA breakdown of ${ticket.id}?`);
+    sendMessage(`Check status of ${ticket.id}`);
   });
 
   document.getElementById("btn-escalate-chat").addEventListener("click", () => {
     modal.classList.remove("show");
     switchView('chat');
-    sendMessage(`Escalate ticket ${ticket.id} to P1 Critical priority`);
+    sendMessage(`Escalate ticket ${ticket.id} to P1`);
   });
 }
 
 /* ----------------------------------------------------------------------------
- * CHAT & A2UI AGENT INTEGRATION (Preserved Logic)
+ * CHAT & A2UI AGENT INTEGRATION
  * -------------------------------------------------------------------------- */
 const log = document.getElementById("log");
 const form = document.getElementById("form");
@@ -1806,8 +1706,7 @@ function buildNode(id, comps, seen) {
       t.textContent = txt;
       return t;
     }
-    case "Divider":
-      return el("hr", "a2divider");
+    case "Divider": return el("hr", "a2divider");
     case "Image": {
       const src = boundStr(props.url || props.src);
       if (!/^https?:\/\//i.test(src)) return null;
@@ -1853,19 +1752,6 @@ function renderSurface(messages, container) {
   return drew;
 }
 
-function flattenText(messages) {
-  const out = [];
-  for (const m of messages) {
-    const su = m.surfaceUpdate;
-    if (su && Array.isArray(su.components)) {
-      for (const c of su.components) {
-        if (c && c.component && c.component.Text) out.push(boundStr(c.component.Text.text));
-      }
-    }
-  }
-  return out.join("\n").trim();
-}
-
 function renderReply(b, parts) {
   b.textContent = "";
   const texts = [];
@@ -1900,34 +1786,10 @@ function renderReply(b, parts) {
 
   if (a2ui.length) {
     b.classList.add("rich");
-    if (!renderSurface(a2ui, b)) {
-      b.appendChild(el("div", null, flattenText(a2ui) || "I couldn't find a ticket with that ID. Please double check the ticket number, or I can create a new ticket for this issue."));
-    }
+    renderSurface(a2ui, b);
   }
   if (!b.childNodes.length) b.textContent = "(no response)";
   log.scrollTop = log.scrollHeight;
-
-  // Intercept new ticket creation or ticket status updates from Agent responses
-  const fullResponseStr = textStr + JSON.stringify(a2ui);
-  const ticketMatch = fullResponseStr.match(/TICKET-\d{4}/g);
-  if (ticketMatch) {
-    ticketMatch.forEach(id => {
-      if (!tickets.some(t => t.id === id)) {
-        tickets.unshift({
-          id: id,
-          title: "New Incident Ticket (Created via Nova)",
-          priority: fullResponseStr.includes("P1") ? "P1" : fullResponseStr.includes("P2") ? "P2" : "P3",
-          status: "open",
-          team: fullResponseStr.includes("SRE") ? "Site Reliability Engineering (SRE)" : "End User Support",
-          requestor: "Web User",
-          sla: "4.0h remaining",
-          created: new Date().toISOString().replace('T', ' ').slice(0, 16),
-          description: "Ticket generated automatically by Nova Enterprise Concierge."
-        });
-        renderDashboard();
-      }
-    });
-  }
 }
 
 async function sendMessage(text) {
@@ -1952,6 +1814,8 @@ async function sendMessage(text) {
       throw new Error(`Server returned non-JSON (HTTP ${res.status}). ${raw.slice(0, 300)}`);
     }
     renderReply(b, data.parts || []);
+    // Synchronize ticket store with Firestore after any Nova action
+    setTimeout(loadTicketsFromBackend, 1500);
   } catch (e) {
     b.textContent = "Error: " + e.message;
   }
@@ -1968,9 +1832,8 @@ document.querySelectorAll(".prompt-chip").forEach(btn => {
   });
 });
 
-/* Initial render */
-renderDashboard();
-renderTickets();
+/* Initial load from Firestore */
+loadTicketsFromBackend();
 </script>
 </body>
 </html>
