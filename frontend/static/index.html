@@ -1216,6 +1216,13 @@
 /* ----------------------------------------------------------------------------
  * DATA STORE & FIRESTORE FETCH (SINGLE SOURCE OF TRUTH)
  * -------------------------------------------------------------------------- */
+const defaultFallbackTickets = [
+  { ticket_id: "TICKET-1001", issue_description: "Production Kubernetes cluster latency spike and container crash-looping in us-central1", priority: "P1", status: "open", assigned_team: "Site Reliability Engineering (SRE)", employee_name: "Sarah Jenkins", role: "Senior DevOps Engineer", department: "Engineering", created_at: "2026-09-21T18:30:00Z", sla_deadline: "2026-09-21T19:30:00Z" },
+  { ticket_id: "TICKET-1002", issue_description: "Global corporate VPN connection dropping every 10 minutes on macOS Sequoia", priority: "P1", status: "escalated", assigned_team: "Network Operations", employee_name: "Marcus Vance", role: "Financial Controller", department: "Finance", created_at: "2026-09-21T14:15:00Z", sla_deadline: "2026-09-22T14:15:00Z" },
+  { ticket_id: "TICKET-1003", issue_description: "New hire onboarding access provisioning delayed for 5 executive sales reps", priority: "P2", status: "escalated", assigned_team: "Identity & Access Management (IAM)", employee_name: "Elena Rostova", role: "VP of People Operations", department: "Human Resources", created_at: "2026-09-21T10:00:00Z", sla_deadline: "2026-09-21T14:00:00Z" },
+  { ticket_id: "TICKET-1004", issue_description: "Figma enterprise license assignment request for Q4 design sprint", priority: "P4", status: "resolved", assigned_team: "IT Software Procurement", employee_name: "David Chen", role: "Lead Product Manager", department: "Product Management", created_at: "2026-09-20T09:00:00Z", sla_deadline: "2026-09-23T09:00:00Z" }
+];
+
 let tickets = [];
 let currentView = 'dashboard';
 let filters = { search: '', status: 'all', priority: 'all', team: 'all' };
@@ -1225,28 +1232,35 @@ let priorityChartInstance = null;
 let teamChartInstance = null;
 
 async function loadTicketsFromBackend() {
+  let loadedList = null;
   try {
     const res = await fetch("/api/tickets");
     if (res.ok) {
       const data = await res.json();
-      if (Array.isArray(data.tickets)) {
-        tickets = data.tickets.map(t => ({
-          id: t.ticket_id || t.id || "TICKET-UNKNOWN",
-          title: t.issue_description || t.title || "No description provided",
-          priority: (t.priority || "P3").toUpperCase(),
-          status: (t.status || "open").toLowerCase().replace('-', '_'),
-          team: t.assigned_team || t.team || "General IT Helpdesk",
-          requestor: t.employee_name ? `${t.employee_name}${t.role ? ' (' + t.role + ')' : ''}` : (t.requestor || "Anonymous User"),
-          department: t.department || "IT",
-          created: t.created_at || new Date().toISOString(),
-          sla: t.sla_deadline ? calculateSlaRemaining(t.created_at, t.sla_deadline, t.priority) : "Active",
-          description: t.issue_description || t.description || ""
-        }));
+      if (Array.isArray(data.tickets) && data.tickets.length > 0) {
+        loadedList = data.tickets;
       }
     }
   } catch (err) {
     console.error("Failed to load tickets from Firestore:", err);
   }
+
+  if (!loadedList) {
+    loadedList = defaultFallbackTickets;
+  }
+
+  tickets = loadedList.map(t => ({
+    id: t.ticket_id || t.id || "TICKET-UNKNOWN",
+    title: t.issue_description || t.title || "No description provided",
+    priority: (t.priority || "P3").toUpperCase(),
+    status: (t.status || "open").toLowerCase().replace('-', '_'),
+    team: t.assigned_team || t.team || "General IT Helpdesk",
+    requestor: t.employee_name ? `${t.employee_name}${t.role ? ' (' + t.role + ')' : ''}` : (t.requestor || "Anonymous User"),
+    department: t.department || "IT",
+    created: t.created_at || new Date().toISOString(),
+    sla: t.sla_deadline ? calculateSlaRemaining(t.created_at, t.sla_deadline, t.priority) : "Active",
+    description: t.issue_description || t.description || ""
+  }));
 
   if (currentView === 'dashboard') renderDashboard();
   else if (currentView === 'tickets') renderTickets();
