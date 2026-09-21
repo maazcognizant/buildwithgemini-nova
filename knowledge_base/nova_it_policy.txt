@@ -1,0 +1,140 @@
+NOVA CORP — INTERNAL IT POLICY & TROUBLESHOOTING KNOWLEDGE BASE
+Version 1.0 — IT Operations Department
+
+============================================================
+SECTION 1: INCIDENT PRIORITY & SLA DEFINITIONS
+============================================================
+
+Priority levels are assigned based on business impact and urgency.
+
+P1 - CRITICAL
+Definition: Complete loss of service for a critical system, or an issue blocking
+an executive, VP, or time-sensitive business event (e.g., board presentation,
+client demo, production outage).
+Response Time: Immediate acknowledgment (within 5 minutes).
+Resolution SLA: 1 hour.
+Escalation: Automatically routed to on-call Senior Engineer and IT Duty Manager.
+
+P2 - HIGH
+Definition: Significant impact to a department or multiple users, or a single
+VIP/executive user experiencing a non-blocking but severe issue.
+Response Time: Within 15 minutes.
+Resolution SLA: 4 hours.
+Escalation: Routed to relevant specialist team (Network, IAM, Endpoint).
+
+P3 - MEDIUM
+Definition: Individual user impacted, workaround may exist, not blocking
+critical business function.
+Response Time: Within 1 hour.
+Resolution SLA: 24 hours.
+
+P4 - LOW
+Definition: Minor inconvenience, feature request, or non-urgent software/license
+request.
+Response Time: Within 4 business hours.
+Resolution SLA: 72 hours.
+
+Note on VIP escalation: Any ticket involving a VP-level or above employee,
+or any issue tagged as blocking a live client-facing or board-facing event,
+should be escalated one priority tier above its default classification.
+
+============================================================
+SECTION 2: VPN & REMOTE ACCESS TROUBLESHOOTING
+============================================================
+
+Common Issue: VPN connects but corporate resources are unreachable.
+Steps:
+1. Confirm the VPN client shows "Connected" status, not "Connecting."
+2. Check for a DNS suffix mismatch; run ipconfig /all (Windows) or
+   scutil --dns (macOS) and confirm corp.internal is listed as a search domain.
+3. Restart the VPN client service, not just the app.
+4. If using a docking station, disconnect and reconnect the dock's Ethernet
+   cable — dock-based NICs occasionally fail to bind after sleep/wake cycles.
+
+Common Issue: Laptop screen goes black or flickers when connected to a
+corporate docking station (common with certain dock models and external
+monitor configurations).
+Steps:
+1. Disconnect the display cable from the dock and reconnect directly to the
+   laptop to isolate whether the dock or the display driver is at fault.
+2. Update or roll back the display/graphics driver — docking station display
+   issues are frequently caused by driver mismatches after OS updates.
+3. Power-cycle the dock itself (unplug for 10 seconds) — this resolves the
+   majority of dock-related black-screen issues.
+4. If the issue persists and the user has an imminent meeting or presentation,
+   advise immediate fallback: present directly from the laptop screen or via
+   a mobile hotspot and a different display adapter while the ticket proceeds
+   at elevated priority.
+Escalation Note: If this issue affects a user immediately before a
+client-facing or board-facing event, classify as P1 and escalate immediately
+to the Network Operations on-call engineer, providing an interim workaround
+within 5 minutes of ticket creation.
+
+Common Issue: VPN repeatedly drops on macOS.
+Steps:
+1. Check for a pending macOS update; several recent releases have known VPN
+   client compatibility issues.
+2. Disable "Wi-Fi Assist" temporarily, which can cause tunnel instability.
+3. If on Okta/SAML-based VPN authentication, clear the cached SAML session
+   and force re-authentication.
+4. Escalate to Network Operations if the drop occurs more than 3 times per
+   hour, as this indicates a possible gateway-side issue rather than a
+   client-side one.
+
+============================================================
+SECTION 3: IDENTITY, ACCESS & NEW HIRE PROVISIONING
+============================================================
+
+New hire access requests must include: employee name, department, manager
+name, start date, and role/title.
+
+Standard provisioning includes:
+- Okta/SAML single sign-on account
+- Corporate email and calendar
+- VPN access profile matching department
+- Access to department-specific shared drives
+
+Provisioning SLA: New hire accounts must be provisioned no later than the
+business day before the employee's start date. Requests submitted with less
+than 2 business days' notice should be classified P2 and escalated to the
+IAM team for expedited processing.
+
+Role changes (promotions, department transfers) require manager approval
+before IAM updates access groups. Access changes are not automatic on
+title change; a ticket must be filed.
+
+============================================================
+SECTION 4: HARDWARE, DOCKING STATIONS & DISPLAY EQUIPMENT
+============================================================
+
+Standard hardware refresh cycle: laptops are refreshed every 3 years;
+docking stations and monitors every 5 years.
+
+Docking Station Known Issues:
+- Certain dock models are known to cause intermittent black-screen or
+  flickering display issues when paired with specific external monitors,
+  particularly after firmware or OS updates.
+- If a user reports display issues "only when docked," treat this as a
+  known hardware compatibility issue rather than a software fault, and
+  route to Endpoint Hardware team rather than Network Operations, unless
+  the issue is also affecting VPN/network connectivity simultaneously.
+
+Loaner Equipment: Available for P1/P2 hardware failures affecting an
+employee's ability to work. Loaner requests should be flagged in the ticket
+for same-day dispatch where possible.
+
+============================================================
+SECTION 5: SOFTWARE & LICENSE REQUESTS
+============================================================
+
+Standard software requests (e.g., design tools, productivity licenses) are
+classified P4 by default unless the request blocks an active project
+deadline, in which case they may be elevated to P3 with manager
+justification noted in the ticket.
+
+License requests require manager approval before provisioning license keys
+or enterprise seats.
+
+============================================================
+END OF DOCUMENT
+============================================================

@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova — Enterprise IT Operations Concierge</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+  :root {
+    --bg-main: #f5f6f8;
+    --bg-surface: #ffffff;
+    --bg-surface-elevated: #f9f9fb;
+    --bg-input: #ffffff;
+    
+    --border-subtle: #e5e5e7;
+    --border-strong: #d2d2d7;
+    
+    --text-primary: #1d1d1f;
+    --text-secondary: #6e6e73;
+    --text-tertiary: #86868b;
+    
+    --accent-blue: #0071e3;
+    --accent-blue-hover: #0077ed;
+    --accent-blue-subtle: rgba(0, 113, 227, 0.12);
+    
+    --user-bubble-bg: #0071e3;
+    --user-bubble-border: #0071e3;
+    --user-bubble-text: #ffffff;
+    
+    --radius-main: 14px;
+    --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Inter", "Segoe UI", Roboto, sans-serif;
+    
+    --shadow-subtle: 0 2px 12px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02);
+    --shadow-elevated: 0 4px 20px rgba(0, 0, 0, 0.05), 0 1px 4px rgba(0, 0, 0, 0.02);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: var(--font-stack);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  header {
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 1.1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  }
+
+  .header-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .header-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .header-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.022em;
+    color: var(--text-primary);
+  }
+
+  .header-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.22rem 0.6rem;
+    border-radius: 9999px;
+    background: rgba(52, 199, 89, 0.1);
+    border: 1px solid rgba(52, 199, 89, 0.25);
+    font-size: 0.725rem;
+    font-weight: 500;
+    color: #248a3d;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #34c759;
+  }
+
+  .header-subtitle {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  /* Container & Chat Area */
+  #chat-container {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    max-width: 880px;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+  }
+
+  #log {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+
+  #log::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
+  /* Messages */
+  .msg-row {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .msg-row.user {
+    align-items: flex-end;
+  }
+
+  .msg-row.agent {
+    align-items: flex-start;
+  }
+
+  .msg-sender-label {
+    font-size: 0.725rem;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.4rem;
+    padding: 0 0.3rem;
+  }
+
+  .bubble {
+    max-width: 86%;
+    padding: 0.925rem 1.25rem;
+    border-radius: var(--radius-main);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    word-break: break-word;
+    white-space: pre-wrap;
+    box-shadow: var(--shadow-subtle);
+  }
+
+  .msg-row.user .bubble {
+    background: var(--user-bubble-bg);
+    border: 1px solid var(--user-bubble-border);
+    color: var(--user-bubble-text);
+  }
+
+  .msg-row.agent .bubble {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+  }
+
+  .bubble.rich {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    white-space: normal !important;
+    width: 100%;
+    box-shadow: none !important;
+  }
+
+  /* Loading State */
+  .typing-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.2rem;
+  }
+
+  .typing-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--text-tertiary);
+    animation: typingPulse 1.4s infinite ease-in-out both;
+  }
+
+  .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+  .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+  @keyframes typingPulse {
+    0%, 80%, 100% { opacity: 0.3; transform: scale(0.85); }
+    40% { opacity: 1; transform: scale(1.15); }
+  }
+
+  /* A2UI Native Components */
+  .a2card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-main);
+    padding: 1.35rem;
+    box-shadow: var(--shadow-elevated);
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .a2card + .a2card, .a2col > .a2card {
+    margin-top: 0.85rem;
+  }
+
+  .a2col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .a2row {
+    display: flex;
+    flex-direction: row;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .a2row.between {
+    justify-content: space-between;
+  }
+
+  .a2text {
+    margin: 0;
+    line-height: 1.5;
+    color: var(--text-primary);
+    font-size: 0.9375rem;
+  }
+
+  .a2text.a2-h1 { font-size: 1.375rem; font-weight: 700; letter-spacing: -0.02em; color: var(--text-primary); }
+  .a2text.a2-h2 { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; color: var(--text-primary); }
+  .a2text.a2-h3 { font-size: 1.05rem; font-weight: 600; color: var(--text-primary); }
+  .a2text.a2-h4 { font-size: 0.95rem; font-weight: 600; color: var(--text-primary); }
+  .a2text.a2-caption { font-size: 0.8125rem; color: var(--text-secondary); }
+
+  /* Priority Badges - Light Theme Tones */
+  .priority-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.28rem 0.7rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    width: fit-content;
+  }
+
+  .badge-p1 {
+    background: rgba(255, 59, 48, 0.12);
+    color: #d70015;
+    border: 1px solid rgba(255, 59, 48, 0.22);
+  }
+
+  .badge-p2 {
+    background: rgba(255, 149, 0, 0.12);
+    color: #c77000;
+    border: 1px solid rgba(255, 149, 0, 0.22);
+  }
+
+  .badge-p3 {
+    background: rgba(255, 204, 0, 0.15);
+    color: #8f6b00;
+    border: 1px solid rgba(255, 204, 0, 0.25);
+  }
+
+  .badge-p4 {
+    background: rgba(52, 199, 89, 0.12);
+    color: #1a7e34;
+    border: 1px solid rgba(52, 199, 89, 0.22);
+  }
+
+  .a2divider {
+    border: none;
+    border-top: 1px solid var(--border-subtle);
+    margin: 0.85rem 0;
+    width: 100%;
+  }
+
+  .a2img {
+    max-width: 100%;
+    border-radius: var(--radius-main);
+    display: block;
+    margin-top: 0.85rem;
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-subtle);
+  }
+
+  /* Quick Action Prompt Chips */
+  .prompt-suggestions {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding: 10px 24px 14px 24px !important;
+    margin: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0 !important;
+  }
+
+  .prompt-chip {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 7px 16px !important;
+    margin: 0 !important;
+    border-radius: 9999px !important;
+    background-color: #ffffff !important;
+    border: 1px solid var(--border-subtle) !important;
+    color: var(--text-secondary) !important;
+    font-family: inherit !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    line-height: 1.4 !important;
+    white-space: nowrap !important;
+    cursor: pointer !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    height: auto !important;
+    min-height: 34px !important;
+    width: auto !important;
+    max-width: 100% !important;
+    flex: 0 0 auto !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  .prompt-chip:hover {
+    background-color: #ffffff !important;
+    border-color: var(--border-strong) !important;
+    color: var(--text-primary) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+    transform: translateY(-1px) !important;
+  }
+
+  .prompt-chip:active {
+    transform: translateY(0) scale(0.98) !important;
+  }
+
+  /* Input Footer Area */
+  .input-wrapper {
+    background: var(--bg-main);
+    border-top: 1px solid var(--border-subtle);
+    padding: 1.25rem 1.5rem 1.5rem;
+    flex-shrink: 0;
+  }
+
+  form {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    background: var(--bg-input);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-main);
+    padding: 0.45rem 0.55rem 0.45rem 1.0rem;
+    box-shadow: var(--shadow-subtle);
+    transition: all 0.2s ease;
+  }
+
+  form:focus-within {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 3px var(--accent-blue-subtle);
+  }
+
+  input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-family: var(--font-stack);
+    font-size: 0.9375rem;
+    padding: 0.5rem 0;
+  }
+
+  input::placeholder {
+    color: var(--text-tertiary);
+  }
+
+  form button[type="submit"] {
+    background: var(--accent-blue);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    flex-shrink: 0;
+  }
+
+  form button[type="submit"]:hover {
+    background: var(--accent-blue-hover);
+    transform: scale(1.03);
+  }
+
+  form button[type="submit"]:active {
+    transform: scale(0.97);
+  }
+
+  form button[type="submit"] svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 640px) {
+    header {
+      padding: 0.9rem 1.25rem;
+    }
+    #log {
+      padding: 1.25rem 1rem;
+    }
+    .bubble {
+      max-width: 90%;
+    }
+    .prompt-suggestions {
+      padding: 8px 16px 10px 16px !important;
+    }
+    .input-wrapper {
+      padding: 0.85rem 1rem 1.15rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-brand">
+    <div class="header-title-row">
+      <span class="header-title">Nova</span>
+      <span class="header-badge">
+        <span class="status-dot"></span>
+        Operational
+      </span>
+    </div>
+    <span class="header-subtitle">Enterprise IT Operations Concierge</span>
+  </div>
+</header>
+
+<div id="chat-container">
+  <div id="log"></div>
+
+  <div class="prompt-suggestions">
+    <button type="button" class="prompt-chip" data-prompt="Check status of TICKET-1001">Check status of TICKET-1001</button>
+    <button type="button" class="prompt-chip" data-prompt="My VPN keeps dropping on macOS">My VPN keeps dropping on macOS</button>
+    <button type="button" class="prompt-chip" data-prompt="Create a ticket for a broken monitor">Create a ticket for a broken monitor</button>
+  </div>
+
+  <div class="input-wrapper">
+    <form id="form">
+      <input id="input" placeholder="Message Nova or describe an IT issue…" autocomplete="off" autofocus>
+      <button type="submit" aria-label="Send message">
+        <svg viewBox="0 0 24 24">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+const log = document.getElementById("log");
+const form = document.getElementById("form");
+const input = document.getElementById("input");
+
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+
+function bubble(who) {
+  const row = el("div", "msg-row " + who);
+  const label = el("div", "msg-sender-label", who === "user" ? "You" : "Nova");
+  const b = el("div", "bubble");
+  row.appendChild(label);
+  row.appendChild(b);
+  log.appendChild(row);
+  log.scrollTop = log.scrollHeight;
+  return b;
+}
+
+function setTypingIndicator(b) {
+  b.innerHTML = '<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+}
+
+/* ----------------------------------------------------------------------------
+ * A2UI Renderer (v0.8 Basic Catalog subset).
+ * Renders Card, Column, Row, Text, Divider, List, Image, Icon.
+ * Refined Apple Light Theme styling for cards and badges.
+ * -------------------------------------------------------------------------- */
+
+function boundStr(v) {
+  if (v == null) return "";
+  if (typeof v === "string") return v;
+  if (typeof v.literalString === "string") return v.literalString;
+  return "";
+}
+
+function childIds(props) {
+  const ids = [];
+  if (props && typeof props.child === "string") ids.push(props.child);
+  const ch = props && props.children;
+  if (ch && Array.isArray(ch.explicitList)) {
+    for (const c of ch.explicitList) {
+      if (typeof c === "string") ids.push(c);
+    }
+  }
+  return ids;
+}
+
+function buildNode(id, comps, seen) {
+  if (!id || seen.has(id)) return null;
+  seen.add(id);
+  const spec = comps[id];
+  if (!spec || typeof spec !== "object") return null;
+  const type = Object.keys(spec)[0];
+  const props = spec[type] || {};
+  const kids = () => childIds(props).map(cid => buildNode(cid, comps, seen)).filter(Boolean);
+
+  switch (type) {
+    case "Card": {
+      const d = el("div", "a2card");
+      kids().forEach(n => d.appendChild(n));
+      return d;
+    }
+    case "Column":
+    case "List": {
+      const horizontal = type === "List" && props.direction === "horizontal";
+      const d = el("div", horizontal ? "a2row" : "a2col");
+      kids().forEach(n => d.appendChild(n));
+      return d;
+    }
+    case "Row": {
+      const d = el("div", "a2row" + (props.distribution === "spaceBetween" ? " between" : ""));
+      kids().forEach(n => d.appendChild(n));
+      return d;
+    }
+    case "Text": {
+      const txt = boundStr(props.text);
+      const hint = String(props.usageHint || "body").toLowerCase();
+      
+      // Check for Priority patterns to render clean enterprise badges
+      const pMatch = txt.match(/\[?(P[1-4])\b/i);
+      if (pMatch) {
+        const pLevel = pMatch[1].toUpperCase();
+        const badge = el("div", "priority-badge badge-" + pLevel.toLowerCase(), txt);
+        return badge;
+      }
+
+      const t = el("div", "a2text");
+      if (["h1", "h2", "h3", "h4", "h5", "h6"].includes(hint)) t.classList.add("a2-" + hint);
+      else if (hint === "caption") t.classList.add("a2-caption");
+      t.textContent = txt;
+      return t;
+    }
+    case "Divider":
+      return el("hr", "a2divider");
+    case "Image": {
+      const src = boundStr(props.url || props.src);
+      if (!/^https?:\/\//i.test(src)) return null;
+      const img = el("img", "a2img");
+      img.src = src;
+      img.alt = boundStr(props.alt) || "Diagnostic Diagram";
+      return img;
+    }
+    case "Icon": {
+      return null;
+    }
+    default:
+      return null;
+  }
+}
+
+function renderSurface(messages, container) {
+  const comps = {};
+  const roots = [];
+  for (const m of messages) {
+    if (m.beginRendering && typeof m.beginRendering.root === "string") roots.push(m.beginRendering.root);
+    const su = m.surfaceUpdate;
+    if (su && Array.isArray(su.components)) {
+      for (const c of su.components) {
+        if (c && c.id && c.component) comps[c.id] = c.component;
+      }
+    }
+  }
+  let rootIds = roots.filter(r => comps[r]);
+  if (rootIds.length === 0) {
+    const referenced = new Set();
+    for (const id in comps) {
+      const spec = comps[id];
+      childIds(spec[Object.keys(spec)[0]] || {}).forEach(c => referenced.add(c));
+    }
+    rootIds = Object.keys(comps).filter(id => !referenced.has(id));
+  }
+  let drew = false;
+  for (const rid of rootIds) {
+    const node = buildNode(rid, comps, new Set());
+    if (node) {
+      container.appendChild(node);
+      drew = true;
+    }
+  }
+  return drew;
+}
+
+function flattenText(messages) {
+  const out = [];
+  for (const m of messages) {
+    const su = m.surfaceUpdate;
+    if (su && Array.isArray(su.components)) {
+      for (const c of su.components) {
+        if (c && c.component && c.component.Text) out.push(boundStr(c.component.Text.text));
+      }
+    }
+  }
+  return out.join("\n").trim();
+}
+
+function renderReply(b, parts) {
+  b.textContent = "";
+  const texts = [];
+  const a2ui = [];
+
+  for (const p of parts) {
+    if (!p) continue;
+    if (p.kind === "a2ui" && p.data) {
+      let data = p.data;
+      if (typeof data === "string") {
+        try {
+          const clean = data.replace(/<\/?a2ui-json>/g, "").replace(/<\/?a2a_datapart_json>/g, "").trim();
+          data = JSON.parse(clean);
+        } catch(e) {}
+      }
+      a2ui.push(data);
+    } else if (p.kind === "text" || p.text) {
+      const txt = p.text || "";
+      if (txt.includes("<a2ui-json>") || txt.includes("<a2a_datapart_json>")) {
+        try {
+          const clean = txt.replace(/<\/?a2ui-json>/g, "").replace(/<\/?a2a_datapart_json>/g, "").trim();
+          a2ui.push(JSON.parse(clean));
+          continue;
+        } catch(e) {}
+      }
+      texts.push(txt);
+    }
+  }
+
+  const textStr = texts.join("\n").trim();
+  if (textStr) b.appendChild(el("div", null, textStr));
+
+  if (a2ui.length) {
+    b.classList.add("rich");
+    if (!renderSurface(a2ui, b)) {
+      b.appendChild(el("div", null, flattenText(a2ui) || "I couldn't find a ticket with that ID. Please double check the ticket number, or I can create a new ticket for this issue."));
+    }
+  }
+  if (!b.childNodes.length) b.textContent = "(no response)";
+  log.scrollTop = log.scrollHeight;
+}
+
+async function sendMessage(text) {
+  if (!text) return;
+  bubble("user").textContent = text;
+  input.value = "";
+  
+  const b = bubble("agent");
+  setTypingIndicator(b);
+
+  try {
+    const res = await fetch("/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text })
+    });
+    const raw = await res.text();
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch {
+      throw new Error(`Server returned non-JSON (HTTP ${res.status}). ${raw.slice(0, 300)}`);
+    }
+    renderReply(b, data.parts || []);
+  } catch (e) {
+    b.textContent = "Error: " + e.message;
+  }
+}
+
+form.addEventListener("submit", (ev) => {
+  ev.preventDefault();
+  sendMessage(input.value.trim());
+});
+
+document.querySelectorAll(".prompt-chip").forEach(btn => {
+  btn.addEventListener("click", () => {
+    sendMessage(btn.getAttribute("data-prompt"));
+  });
+});
+</script>
+</body>
+</html>
